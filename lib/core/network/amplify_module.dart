@@ -7,7 +7,7 @@ import 'package:gimme_goals/amplifyconfiguration.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable()
-class AmplifyConfigurator {
+class AmplifyModule {
   final AmplifyClass amplify = Amplify;
   final AmplifyAuthCognito auth = AmplifyAuthCognito();
   final AmplifyAnalyticsPinpoint analytics = AmplifyAnalyticsPinpoint();

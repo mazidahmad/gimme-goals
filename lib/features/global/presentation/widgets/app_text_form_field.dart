@@ -8,6 +8,7 @@ class AppTextFormField extends StatelessWidget {
     this.controller,
     this.prefixIcon,
     this.isObscured = false,
+    this.validator,
     super.key,
   });
 
@@ -15,10 +16,12 @@ class AppTextFormField extends StatelessWidget {
   final String hint;
   final Widget? prefixIcon;
   final bool isObscured;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       controller: controller,
       obscureText: isObscured,
       decoration: InputDecoration(

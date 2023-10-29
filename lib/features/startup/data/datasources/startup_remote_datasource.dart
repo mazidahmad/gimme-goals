@@ -1,5 +1,5 @@
 import 'package:gimme_goals/core/di/service_locator.dart';
-import 'package:gimme_goals/core/network/amplify_configurator.dart';
+import 'package:gimme_goals/core/network/amplify_module.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class StartupRemoteDatasource {
@@ -8,7 +8,7 @@ abstract class StartupRemoteDatasource {
 
 @Injectable(as: StartupRemoteDatasource)
 class StartupRemoteDatasourceImpl extends StartupRemoteDatasource {
-  final AmplifyConfigurator amplifyConfigurator = getIt<AmplifyConfigurator>();
+  final AmplifyModule amplifyConfigurator = getIt<AmplifyModule>();
 
   @override
   Future<void> initializeAmplifyConfiguration() async {
