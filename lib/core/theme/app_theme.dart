@@ -57,13 +57,19 @@ class AppTheme {
         ),
 
         //--------- Bottom Navigation Bar ----------//
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: AppColors.surfaceColor,
-          selectedItemColor: AppColors.primaryColor,
-          selectedIconTheme: IconThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          elevation: 0,
+          selectedLabelStyle: AppTextStyle.labelNavbar(),
+          backgroundColor: AppColors.textColor.withOpacity(0.05),
+          selectedItemColor: AppColors.textColor,
+          selectedIconTheme: const IconThemeData(
             color: AppColors.primaryColor,
           ),
-          unselectedIconTheme: IconThemeData(color: AppColors.secondaryColor),
+          unselectedItemColor: AppColors.hintTextColor,
+          unselectedIconTheme: const IconThemeData(
+            color: AppColors.hintTextColor,
+          ),
+          type: BottomNavigationBarType.fixed,
         ),
 
         //------------- Tab Bar -------------//

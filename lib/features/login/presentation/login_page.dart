@@ -86,7 +86,10 @@ class LoginPage extends StatelessWidget {
                       AppPrimaryButton(
                         width: double.infinity,
                         text: 'Sign In',
-                        onPressed: () {},
+                        onPressed: () {
+                          getIt<AppRouter>()
+                              .replace(const VerificationCodeRoute());
+                        },
                       ),
                       Gap(42.h),
                       Row(

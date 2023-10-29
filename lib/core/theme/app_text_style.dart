@@ -122,9 +122,9 @@ class AppTextStyle {
 
   static TextStyle labelNavbar({Color color = AppColors.textColor}) => _base(
         color: color,
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: FontWeight.w600,
         height: 0,
-        letterSpacing: 0.01 * 18,
+        letterSpacing: 0.01 * 14,
       );
 }
