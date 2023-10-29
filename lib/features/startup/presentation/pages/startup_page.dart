@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_logo_widget.dart';
+import 'package:gimme_goals/features/startup/presentation/cubit/startup_cubit.dart';
 import 'package:gimme_goals/router/app_router.dart';
 import 'package:gimme_goals/router/app_router.gr.dart';
 
@@ -16,10 +18,11 @@ class StartupPage extends StatefulWidget {
 }
 
 class _StartupPageState extends State<StartupPage> {
+  late final StartupCubit _cubit;
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2))
-        .then((value) => getIt<AppRouter>().replace(const OnBoardingRoute()));
+    _cubit = getIt<StartupCubit>();
     super.initState();
   }
 
@@ -30,10 +33,20 @@ class _StartupPageState extends State<StartupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: AppLogoWidget(),
+    return BlocProvider(
+      create: (context) => _cubit..initializeStartup(),
+      child: BlocListener<StartupCubit, StartupState>(
+        listener: (context, state) {
+          if (state is StartupLoaded) {
+            getIt<AppRouter>().replace(const OnBoardingRoute());
+          }
+        },
+        child: const Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: AppLogoWidget(),
+            ),
+          ),
         ),
       ),
     );

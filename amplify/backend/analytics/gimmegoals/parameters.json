@@ -1,0 +1,21 @@
+{
+    "appName": "gimmegoals",
+    "roleName": "pinpointLambdaRole4372a714",
+    "cloudformationPolicyName": "cloudformationPolicy4372a714",
+    "cloudWatchPolicyName": "cloudWatchPolicy4372a714",
+    "pinpointPolicyName": "pinpointPolicy4372a714",
+    "authPolicyName": "pinpoint_amplify_4372a714",
+    "unauthPolicyName": "pinpoint_amplify_4372a714",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

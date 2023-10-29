@@ -10,6 +10,14 @@
       "StackName": "amplify-gimmegoals-dev-115023",
       "StackId": "arn:aws:cloudformation:us-east-1:405717866990:stack/amplify-gimmegoals-dev-115023/849f2d60-754d-11ee-a746-12bbd291a3eb",
       "AmplifyAppId": "dwjzn8e6lal18"
+    },
+    "categories": {
+      "auth": {
+        "gimmegoalsaa25e73a": {}
+      },
+      "analytics": {
+        "gimmegoals": {}
+      }
     }
   }
 }
