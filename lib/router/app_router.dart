@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:gimme_goals/features/login/presentation/login_page.dart';
+import 'package:gimme_goals/features/login/presentation/pages/login_page.dart';
 import 'package:gimme_goals/features/main/main_page.dart';
 import 'package:gimme_goals/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:gimme_goals/features/profile/presentation/pages/profile_page.dart';
 import 'package:gimme_goals/features/register/presentation/pages/register_page.dart';
 import 'package:gimme_goals/features/startup/presentation/pages/startup_page.dart';
 import 'package:gimme_goals/features/verification/presentation/pages/verification_code_page.dart';
@@ -37,6 +38,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: MainRoute.page,
           path: MainPage.routeName,
+        ),
+        AutoRoute(
+          page: ProfileRoute.page,
+          path: ProfilePage.routeName,
         )
       ];
 }

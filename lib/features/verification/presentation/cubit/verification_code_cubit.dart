@@ -13,10 +13,10 @@ class VerificationCodeCubit extends Cubit<VerificationCodeState> {
 
   final VerifyAccount _verifyAccount = getIt<VerifyAccount>();
 
-  void verifyAccount(String code) async {
+  void verifyAccount(String email, String code) async {
     emit(VerificationCodeLoading());
 
-    var result = await _verifyAccount.execute(code);
+    var result = await _verifyAccount.execute(email, code);
 
     emit(
       result.fold(

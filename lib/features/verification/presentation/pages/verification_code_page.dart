@@ -13,9 +13,11 @@ import 'package:pinput/pinput.dart';
 
 @RoutePage()
 class VerificationCodePage extends StatefulWidget {
-  const VerificationCodePage({super.key});
+  const VerificationCodePage({required this.email, super.key});
 
   static const String routeName = '/verification-code';
+
+  final String email;
 
   @override
   State<VerificationCodePage> createState() => _VerificationCodePageState();
@@ -68,8 +70,9 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                   ),
                   Gap(30.h),
                   Pinput(
+                    length: 6,
                     onCompleted: (code) {
-                      _cubit.verifyAccount(code);
+                      _cubit.verifyAccount(widget.email, code);
                     },
                     textCapitalization: TextCapitalization.characters,
                     defaultPinTheme: PinTheme(
@@ -77,10 +80,10 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                           color: AppColors.textfieldBackgroundColor
                               .withOpacity(0.1),
                           borderRadius: BorderRadius.circular(10.sp)),
-                      padding: EdgeInsets.all(20.sp),
-                      textStyle: AppTextStyle.displayMedium(),
-                      height: 60.h,
-                      width: 60.w,
+                      padding: EdgeInsets.all(10.sp),
+                      textStyle: AppTextStyle.displaySmall(),
+                      height: 50.h,
+                      width: 50.w,
                     ),
                   ),
                   Gap(30.h),

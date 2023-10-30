@@ -6,8 +6,10 @@ class AppPrimaryButton extends StatelessWidget {
   const AppPrimaryButton({
     this.text = 'Button',
     this.isLarge = false,
+    this.color,
     this.onPressed,
     this.width,
+    this.textColor,
     super.key,
   });
 
@@ -15,6 +17,8 @@ class AppPrimaryButton extends StatelessWidget {
   final double? width;
   final void Function()? onPressed;
   final bool isLarge;
+  final Color? color;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class AppPrimaryButton extends StatelessWidget {
         foregroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         disabledForegroundColor: Colors.transparent,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: color ?? AppColors.primaryColor,
         minimumSize: Size(width ?? 100.w, 55.h),
         maximumSize: Size(double.infinity, 55.h),
         shape: RoundedRectangleBorder(
@@ -32,9 +36,9 @@ class AppPrimaryButton extends StatelessWidget {
         ),
         shadowColor: Colors.transparent,
         disabledBackgroundColor: AppColors.primaryColor.withOpacity(0.1),
-        textStyle:
-            AppTextStyle.displayMedium(color: AppColors.secondaryTextColor)
-                .copyWith(height: 0),
+        textStyle: AppTextStyle.displayMedium(
+                color: textColor ?? AppColors.secondaryTextColor)
+            .copyWith(height: 0),
         elevation: 0,
       ).copyWith(
         elevation: ButtonStyleButton.allOrNull(0),
@@ -42,9 +46,11 @@ class AppPrimaryButton extends StatelessWidget {
       child: Text(
         text,
         style: isLarge
-            ? AppTextStyle.displayMedium(color: AppColors.secondaryTextColor)
+            ? AppTextStyle.displayMedium(
+                    color: textColor ?? AppColors.secondaryTextColor)
                 .copyWith(height: 0)
-            : AppTextStyle.displaySmall(color: AppColors.secondaryTextColor)
+            : AppTextStyle.displaySmall(
+                    color: textColor ?? AppColors.secondaryTextColor)
                 .copyWith(height: 0),
       ),
     );

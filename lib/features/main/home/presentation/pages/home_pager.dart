@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/theme/theme.dart';
+import 'package:gimme_goals/features/global/presentation/widgets/app_avatar.dart';
+import 'package:gimme_goals/features/global/presentation/widgets/app_box_card.dart';
+import 'package:gimme_goals/router/app_router.dart';
+import 'package:gimme_goals/router/app_router.gr.dart';
 
 class HomePager extends StatelessWidget {
   const HomePager({super.key});
@@ -39,91 +44,27 @@ class HomePager extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 40.h,
-                  width: 40.w,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.sp),
-                    child: Image(
-                      image: const AssetImage(
-                        AppAssets.avatarMan,
-                      ),
-                      width: 40.w,
-                      height: 40.h,
-                    ),
-                  ),
-                ),
+                GestureDetector(
+                    onTap: () => getIt<AppRouter>().push(
+                          const ProfileRoute(),
+                        ),
+                    child: const AppAvatar()),
               ],
             ),
             Gap(20.h),
+            Text(
+              'Current Status',
+              style: AppTextStyle.headlineMedium(),
+            ),
+            Gap(20.h),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.sp),
-                    color: AppColors.textColor.withOpacity(0.1),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Weight',
-                        style: AppTextStyle.headlineSmall().copyWith(height: 0),
-                      ),
-                      Text(
-                        '72',
-                        style: AppTextStyle.displayLarge().copyWith(height: 0),
-                      ),
-                    ],
-                  ),
-                ),
+                const AppBoxCard(title: "Weight", value: "72", subtitle: "Kg"),
                 Gap(12.w),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.sp),
-                    color: AppColors.textColor.withOpacity(0.1),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Height',
-                        style: AppTextStyle.headlineSmall().copyWith(height: 0),
-                      ),
-                      Text(
-                        '180',
-                        style: AppTextStyle.displayLarge().copyWith(height: 0),
-                      ),
-                      Text(
-                        'cm',
-                        style: AppTextStyle.bodySmall(),
-                      ),
-                    ],
-                  ),
-                ),
+                const AppBoxCard(title: "Height", value: "180", subtitle: "cm"),
                 Gap(12.w),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.sp),
-                    color: AppColors.textColor.withOpacity(0.1),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Age',
-                        style: AppTextStyle.headlineSmall().copyWith(height: 0),
-                      ),
-                      Text(
-                        '26',
-                        style: AppTextStyle.displayLarge().copyWith(height: 0),
-                      ),
-                    ],
-                  ),
-                ),
+                const AppBoxCard(title: "Age", value: "26", subtitle: "years"),
               ],
             )
           ],

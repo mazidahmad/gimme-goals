@@ -8,6 +8,6 @@ import 'package:injectable/injectable.dart';
 class VerifyAccount {
   final VerificationRepository _repo = getIt<VerificationRepository>();
 
-  Future<Either<Failure, void>> execute(String code) =>
-      _repo.verifyAccount(code);
+  Future<Either<Failure, void>> execute(String email, String code) =>
+      _repo.verifyAccount(email, code);
 }
