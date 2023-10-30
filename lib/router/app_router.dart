@@ -4,7 +4,7 @@ import 'package:gimme_goals/features/main/main_page.dart';
 import 'package:gimme_goals/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:gimme_goals/features/register/presentation/pages/register_page.dart';
 import 'package:gimme_goals/features/startup/presentation/pages/startup_page.dart';
-import 'package:gimme_goals/features/verification_code/presentation/pages/verification_code_page.dart';
+import 'package:gimme_goals/features/verification/presentation/pages/verification_code_page.dart';
 import 'package:gimme_goals/router/app_router.gr.dart';
 import 'package:injectable/injectable.dart';
 
