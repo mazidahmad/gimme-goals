@@ -13,7 +13,9 @@ class StartupLoading extends StartupState {}
 
 class StartupLoggedIn extends StartupState {}
 
-class StartupLoaded extends StartupState {}
+class StartupConfiguredLoaded extends StartupState {}
+
+class StartupNotLoggedIn extends StartupState {}
 
 class StartupFailed extends StartupState {
   final Failure failure;

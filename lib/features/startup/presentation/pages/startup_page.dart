@@ -36,9 +36,11 @@ class _StartupPageState extends State<StartupPage> {
     return BlocProvider(
       create: (context) => _cubit..initializeStartup(),
       child: BlocListener<StartupCubit, StartupState>(
-        listener: (context, state) {
-          if (state is StartupLoaded) {
-            getIt<AppRouter>().replace(const OnBoardingRoute());
+        listener: (context, state) async {
+          if (state is StartupNotLoggedIn) {
+            await getIt<AppRouter>().replace(const OnBoardingRoute());
+          } else if (state is StartupLoggedIn) {
+            await getIt<AppRouter>().replace(const MainRoute());
           }
         },
         child: const Scaffold(

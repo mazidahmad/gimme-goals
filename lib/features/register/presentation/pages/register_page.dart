@@ -53,7 +53,8 @@ class _RegisterPageState extends State<RegisterPage> with MessagerMixin {
             } else {
               await EasyLoading.dismiss();
               if (state is RegisterSuccess) {
-                await getIt<AppRouter>().replace(const VerificationCodeRoute());
+                await getIt<AppRouter>().replace(
+                    VerificationCodeRoute(email: _cubit.emailController.text));
               } else if (state is RegisterFailed) {
                 showAppToast(
                     message: state.failure.message, type: ToastType.error);

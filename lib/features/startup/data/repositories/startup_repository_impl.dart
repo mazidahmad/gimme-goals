@@ -1,3 +1,4 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dartz/dartz.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/error/failures.dart';
@@ -14,4 +15,8 @@ class StartupRepositoryImpl extends StartupRepository with RepositoryMixin {
   @override
   Future<Either<Failure, void>> initializeAmplifyConfiguration() =>
       callDataSource(() => _remoteDatasource.initializeAmplifyConfiguration());
+
+  @override
+  Future<Either<Failure, AuthUser?>> getCurrentUser() =>
+      callDataSource(() => _remoteDatasource.getCurrentUser());
 }
