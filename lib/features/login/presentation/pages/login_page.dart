@@ -26,6 +26,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with MessagerMixin {
   late final LoginCubit _cubit;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _LoginPageState extends State<LoginPage> with MessagerMixin {
 
   @override
   void dispose() {
+    _cubit.dispose();
     _cubit.close();
     super.dispose();
   }
@@ -52,6 +54,9 @@ class _LoginPageState extends State<LoginPage> with MessagerMixin {
 
             if (state is LoginSuccess) {
               getIt<AppRouter>().replace(const MainRoute());
+            } else if (state is LoginConfirmSignUp) {
+              getIt<AppRouter>().replace(
+                  VerificationCodeRoute(email: _cubit.emailController.text));
             } else if (state is LoginFailed) {
               showAppToast(
                   message: state.failure.message, type: ToastType.error);
@@ -101,20 +106,35 @@ class _LoginPageState extends State<LoginPage> with MessagerMixin {
                           const AppLogoWidget(),
                           Gap(37.h),
                           Form(
+                            key: _formKey,
                             child: Column(
                               children: [
-                                const AppTextFormField(
+                                AppTextFormField(
                                   hint: 'Email',
-                                  prefixIcon: Icon(
+                                  controller: _cubit.emailController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Email cannot be empty';
+                                    }
+                                    return null;
+                                  },
+                                  prefixIcon: const Icon(
                                     Icons.email_outlined,
                                     color: AppColors.hintTextColor,
                                   ),
                                 ),
                                 Gap(20.h),
-                                const AppTextFormField(
+                                AppTextFormField(
                                   hint: 'Password',
+                                  controller: _cubit.passwordController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Password cannot be empty';
+                                    }
+                                    return null;
+                                  },
                                   isObscured: true,
-                                  prefixIcon: Icon(
+                                  prefixIcon: const Icon(
                                     Icons.lock_outlined,
                                     color: AppColors.hintTextColor,
                                   ),
@@ -127,8 +147,9 @@ class _LoginPageState extends State<LoginPage> with MessagerMixin {
                             width: double.infinity,
                             text: 'Sign In',
                             onPressed: () {
-                              getIt<AppRouter>()
-                                  .replace(const VerificationCodeRoute());
+                              if (_formKey.currentState!.validate()) {
+                                _cubit.loginAccount();
+                              }
                             },
                           ),
                           Gap(42.h),

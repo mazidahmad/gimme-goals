@@ -1,3 +1,4 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:dartz/dartz.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/error/failures.dart';
@@ -12,6 +13,7 @@ class LoginRepositoryImpl extends LoginRepository with RepositoryMixin {
       getIt<LoginRemoteDatasource>();
 
   @override
-  Future<Either<Failure, void>> loginAccount(String email, String password) =>
+  Future<Either<Failure, SignInResult>> loginAccount(
+          String email, String password) =>
       callDataSource(() => _remoteDatasource.loginAccount(email, password));
 }

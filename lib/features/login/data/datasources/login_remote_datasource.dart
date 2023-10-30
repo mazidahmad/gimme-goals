@@ -13,14 +13,7 @@ class LoginRemoteDatasourceImpl extends LoginRemoteDatasource {
 
   @override
   Future<SignInResult> loginAccount(String email, String password) async {
-    SignInResult response = await _ampModule.amplify.Auth
+    return await _ampModule.amplify.Auth
         .signIn(username: email, password: password);
-
-    if (!response.isSignedIn) {
-      throw const NetworkException(
-          'Your account was troubled. Please contact Customer Service');
-    }
-
-    return response;
   }
 }
