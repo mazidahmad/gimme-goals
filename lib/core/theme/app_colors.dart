@@ -14,6 +14,9 @@ class AppColors {
   static const Color lighterTextColor = Color(0xFFFFF50A);
   static const Color secondaryTextColor = Color(0xFF000000);
 
+  static const Color red = Color(0xFFF51818);
+  static const Color green = Color(0xFF38DE35);
+
   //Gradient
   static LinearGradient gradient1 = LinearGradient(
       colors: [backgroundColor, backgroundColor.withOpacity(0)],

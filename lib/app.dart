@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/theme/app_theme.dart';
 import 'package:gimme_goals/core/theme/screen_size.dart';
@@ -33,7 +34,7 @@ class _MyAppState extends State<MyApp> {
           themeMode: ThemeMode.dark,
           darkTheme: AppTheme.main(),
           routerConfig: _appRouter.config(),
-          builder: EasyLoading.init(),
+          builder: EasyLoading.init(builder: FToastBuilder()),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
+import 'package:gimme_goals/core/mixin/messenger_mixin.dart';
 import 'package:gimme_goals/core/theme/theme.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_logo_widget.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_primary_button.dart';
@@ -23,7 +24,7 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<RegisterPage> with MessagerMixin {
   late final RegisterCubit _cubit;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -53,6 +54,9 @@ class _RegisterPageState extends State<RegisterPage> {
               await EasyLoading.dismiss();
               if (state is RegisterSuccess) {
                 await getIt<AppRouter>().replace(const VerificationCodeRoute());
+              } else if (state is RegisterFailed) {
+                showAppToast(
+                    message: state.failure.message, type: ToastType.error);
               }
             }
           },

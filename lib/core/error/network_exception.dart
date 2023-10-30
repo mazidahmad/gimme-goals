@@ -43,7 +43,7 @@ class UnauthorizedException extends ApiException {
 
 class RequestException extends ApiException {
   final String? errMessage;
-  const RequestException({this.errMessage})
+  const RequestException(String s, {this.errMessage})
       : super('Request Error', errMessage ?? 'Error Request to Server');
 }
 
