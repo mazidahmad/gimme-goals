@@ -38,4 +38,8 @@ class HomeRepositoryImpl extends HomeRepository with RepositoryMixin {
   @override
   Future<Either<Failure, void>> deleteBodyMass(BodyMassModel bodyMass) =>
       callDataSource(() => _remoteDatasource.deleteBodyMass(bodyMass));
+
+  @override
+  Future<Either<Failure, void>> updateBodyGoal(GoalModel goal) =>
+      callDataSource(() => _remoteDatasource.updateGoal(goal));
 }

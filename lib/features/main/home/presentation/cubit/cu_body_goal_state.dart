@@ -1,14 +1,14 @@
-part of 'add_body_goal_cubit.dart';
+part of 'cu_body_goal_cubit.dart';
 
-enum AddBodyGoalStateStatus { initial, loading, loaded, failed, success }
+enum CUBodyGoalStateStatus { initial, loading, loaded, failed, success }
 
-class AddBodyGoalState extends Equatable {
-  final AddBodyGoalStateStatus status;
+class CUBodyGoalState extends Equatable {
+  final CUBodyGoalStateStatus status;
   final double weight;
   final double height;
   final Failure? failure;
 
-  const AddBodyGoalState(
+  const CUBodyGoalState(
       {required this.status,
       required this.weight,
       required this.height,
@@ -17,13 +17,13 @@ class AddBodyGoalState extends Equatable {
   @override
   List<Object?> get props => [status, weight, height, failure];
 
-  AddBodyGoalState copyWith({
-    AddBodyGoalStateStatus? status,
+  CUBodyGoalState copyWith({
+    CUBodyGoalStateStatus? status,
     double? weight,
     double? height,
     Failure? failure,
   }) {
-    return AddBodyGoalState(
+    return CUBodyGoalState(
       status: status ?? this.status,
       weight: weight ?? this.weight,
       height: height ?? this.height,

@@ -6,27 +6,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/mixin/messenger_mixin.dart';
+import 'package:gimme_goals/features/global/data/models/model_provider.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_primary_button.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_value_changer.dart';
-import 'package:gimme_goals/features/main/home/presentation/cubit/add_body_goal_cubit.dart';
+import 'package:gimme_goals/features/main/home/presentation/cubit/cu_body_goal_cubit.dart';
 import 'package:gimme_goals/router/app_router.dart';
 
 @RoutePage()
-class AddBodyGoalPage extends StatefulWidget {
-  const AddBodyGoalPage({super.key});
+class CUBodyGoalPage extends StatefulWidget {
+  const CUBodyGoalPage({this.goal, super.key});
 
   static const String routeName = '/add-body-goal';
 
+  final GoalModel? goal;
+
   @override
-  State<AddBodyGoalPage> createState() => _AddBodyGoalPageState();
+  State<CUBodyGoalPage> createState() => _CUBodyGoalPageState();
 }
 
-class _AddBodyGoalPageState extends State<AddBodyGoalPage> with MessagerMixin {
-  late final AddBodyGoalCubit _cubit;
+class _CUBodyGoalPageState extends State<CUBodyGoalPage> with MessagerMixin {
+  late final CUBodyGoalCubit _cubit;
 
   @override
   void initState() {
-    _cubit = getIt<AddBodyGoalCubit>();
+    _cubit = getIt<CUBodyGoalCubit>();
     super.initState();
   }
 
@@ -39,28 +42,32 @@ class _AddBodyGoalPageState extends State<AddBodyGoalPage> with MessagerMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _cubit,
+      create: (context) => _cubit..initialize(widget.goal),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Create Body Goal'),
+          title: Text('${(widget.goal != null) ? "Edit" : "Create"} Body Goal'),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: AppPrimaryButton(
-          text: 'Create Body Goal',
-          onPressed: _cubit.addBodyGoal,
+          text: '${(widget.goal != null) ? "Edit" : "Create"} Body Goal',
+          onPressed: () {
+            (widget.goal != null)
+                ? _cubit.updateBodyGoal(widget.goal!)
+                : _cubit.addBodyGoal();
+          },
         ),
-        body: BlocConsumer<AddBodyGoalCubit, AddBodyGoalState>(
+        body: BlocConsumer<CUBodyGoalCubit, CUBodyGoalState>(
           listener: (context, state) async {
-            if (state.status == AddBodyGoalStateStatus.loading) {
+            if (state.status == CUBodyGoalStateStatus.loading) {
               EasyLoading.show();
             } else {
               EasyLoading.dismiss();
 
-              if (state.status == AddBodyGoalStateStatus.failed) {
+              if (state.status == CUBodyGoalStateStatus.failed) {
                 showAppToast(
                     message: state.failure!.message, type: ToastType.error);
-              } else if (state.status == AddBodyGoalStateStatus.success) {
-                await getIt<AppRouter>().pop();
+              } else if (state.status == CUBodyGoalStateStatus.success) {
+                await getIt<AppRouter>().pop(true);
               }
             }
           },
