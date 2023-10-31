@@ -50,7 +50,9 @@ class _CUDBodyMassPageState extends State<CUDBodyMassPage> with MessagerMixin {
           actions: [
             if (widget.bodyMass != null)
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  _cubit.deleteBodyMass(widget.bodyMass!);
+                },
                 icon: const Icon(
                   Icons.delete,
                   color: AppColors.red,

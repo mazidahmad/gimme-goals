@@ -7,6 +7,7 @@ import 'package:gimme_goals/core/util/date_util.dart';
 import 'package:gimme_goals/features/global/data/models/model_provider.dart';
 import 'package:gimme_goals/features/main/home/domain/entity/body_mass_request.dart';
 import 'package:gimme_goals/features/main/home/domain/usecases/add_body_mass.dart';
+import 'package:gimme_goals/features/main/home/domain/usecases/delete_body_mass.dart';
 import 'package:gimme_goals/features/main/home/domain/usecases/update_body_mass.dart';
 import 'package:injectable/injectable.dart';
 
@@ -20,6 +21,7 @@ class CUDBodyMassCubit extends Cubit<CUDBodyMassState> {
 
   final AddBodyMass _addBodyMass = getIt<AddBodyMass>();
   final UpdateBodyMass _updateBodyMass = getIt<UpdateBodyMass>();
+  final DeleteBodyMass _deleteBodyMass = getIt<DeleteBodyMass>();
 
   void initialize(BodyMassModel? bodyMass) async {
     emit(
@@ -62,6 +64,20 @@ class CUDBodyMassCubit extends Cubit<CUDBodyMassState> {
     );
 
     var result = await _updateBodyMass.execute(dataRequest);
+
+    emit(
+      result.fold(
+        (failed) => state.copyWith(
+            status: CUDBodyMassStateStatus.failed, failure: failed),
+        (_) => state.copyWith(status: CUDBodyMassStateStatus.success),
+      ),
+    );
+  }
+
+  void deleteBodyMass(BodyMassModel bodyMass) async {
+    emit(state.copyWith(status: CUDBodyMassStateStatus.loading));
+
+    var result = await _deleteBodyMass.execute(bodyMass);
 
     emit(
       result.fold(

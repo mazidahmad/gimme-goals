@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/theme/theme.dart';
 import 'package:gimme_goals/features/global/data/models/body_mass_model.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_box_card.dart';
+import 'package:gimme_goals/features/main/home/presentation/cubit/home_cubit.dart';
 import 'package:gimme_goals/router/app_router.dart';
 import 'package:gimme_goals/router/app_router.gr.dart';
 
@@ -35,8 +37,13 @@ class TodayBodyMassStatusWidget extends StatelessWidget {
       );
     }
     return GestureDetector(
-      onTap: () =>
-          getIt<AppRouter>().push(CUDBodyMassRoute(bodyMass: bodyMass)),
+      onTap: () => getIt<AppRouter>()
+          .push(CUDBodyMassRoute(bodyMass: bodyMass))
+          .then((value) {
+        if (value == true) {
+          context.read<HomeCubit>().getTodayBodyMass();
+        }
+      }),
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),

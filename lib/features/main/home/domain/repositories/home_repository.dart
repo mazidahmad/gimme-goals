@@ -9,5 +9,6 @@ abstract class HomeRepository {
   Future<Either<Failure, GoalModel?>> getBodyGoal();
   Future<Either<Failure, void>> addBodyMass(BodyMassRequest bodyMass);
   Future<Either<Failure, void>> updateBodyMass(BodyMassModel bodyMass);
+  Future<Either<Failure, void>> deleteBodyMass(BodyMassModel bodyMass);
   Future<Either<Failure, void>> addBodyGoal(BodyGoalRequest goal);
 }

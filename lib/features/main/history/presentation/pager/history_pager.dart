@@ -9,6 +9,7 @@ import 'package:gimme_goals/core/util/date_util.dart';
 import 'package:gimme_goals/features/global/data/models/body_mass_model.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_box_card.dart';
 import 'package:gimme_goals/features/main/history/presentation/cubit/history_cubit.dart';
+import 'package:gimme_goals/features/main/home/presentation/cubit/home_cubit.dart';
 import 'package:gimme_goals/router/app_router.dart';
 import 'package:gimme_goals/router/app_router.gr.dart';
 
@@ -88,6 +89,7 @@ class HistoryListItem extends StatelessWidget {
           .then((value) {
         if (value == true) {
           context.read<HistoryCubit>().fetchHistories();
+          context.read<HomeCubit>().getTodayBodyMass();
         }
       }),
       child: Container(

@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/theme/app_colors.dart';
-import 'package:gimme_goals/core/theme/app_text_style.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_avatar.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_primary_button.dart';
 import 'package:gimme_goals/features/profile/presentation/cubit/profile_cubit.dart';
@@ -53,11 +52,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Gap(40.h),
                     const AppAvatar(size: 40),
-                    Gap(20.h),
-                    Text(
-                      'John Doe',
-                      style: AppTextStyle.headlineLarge(),
-                    ),
                     Gap(40.h),
                     AppPrimaryButton(
                       color: AppColors.red,
