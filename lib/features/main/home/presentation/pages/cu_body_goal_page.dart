@@ -90,6 +90,7 @@ class _CUBodyGoalPageState extends State<CUBodyGoalPage> with MessagerMixin {
                       value: state.height,
                       onChanged: (value) => _cubit.changeHeight(value),
                     ),
+                    Gap(100.h),
                   ],
                 ),
               ),
