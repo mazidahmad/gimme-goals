@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
+import 'package:gimme_goals/core/mixin/messenger_mixin.dart';
 import 'package:gimme_goals/core/theme/theme.dart';
 import 'package:gimme_goals/features/verification/presentation/cubit/verification_code_cubit.dart';
 import 'package:gimme_goals/router/app_router.dart';
@@ -23,7 +24,8 @@ class VerificationCodePage extends StatefulWidget {
   State<VerificationCodePage> createState() => _VerificationCodePageState();
 }
 
-class _VerificationCodePageState extends State<VerificationCodePage> {
+class _VerificationCodePageState extends State<VerificationCodePage>
+    with MessagerMixin {
   late final VerificationCodeCubit _cubit;
 
   @override
@@ -49,7 +51,13 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
           } else {
             EasyLoading.dismiss();
             if (state is VerificationCodeSuccess) {
-              await getIt<AppRouter>().replace(const MainRoute());
+              showAppToast(
+                  message: "Congratulations, Your account was verified!",
+                  type: ToastType.success);
+              await getIt<AppRouter>().replaceAll([const LoginRoute()]);
+            } else if (state is VerificationCodeFailed) {
+              showAppToast(
+                  message: state.failure.message, type: ToastType.error);
             }
           }
         },
@@ -61,12 +69,17 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
                 children: [
+                  Gap(52.h),
                   Text(
                     'Enter verification code',
                     style: AppTextStyle.headlineLarge(),
+                  ),
+                  Gap(30.h),
+                  Text(
+                    'We have sent verification code to your email.\nPlease check your email.',
+                    style: AppTextStyle.bodyMedium(),
+                    textAlign: TextAlign.center,
                   ),
                   Gap(30.h),
                   Pinput(
