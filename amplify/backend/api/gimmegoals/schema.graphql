@@ -1,0 +1,15 @@
+type GoalModel @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  user_id: String!
+  height: Float!
+  weight: Float!
+}
+
+type BodyMassModel @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  user_id: String!
+  height: Float!
+  date: AWSDate!
+  weight: Float!
+}
+ 

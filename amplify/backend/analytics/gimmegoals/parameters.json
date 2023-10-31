@@ -1,11 +1,11 @@
 {
     "appName": "gimmegoals",
-    "roleName": "pinpointLambdaRole4372a714",
-    "cloudformationPolicyName": "cloudformationPolicy4372a714",
-    "cloudWatchPolicyName": "cloudWatchPolicy4372a714",
-    "pinpointPolicyName": "pinpointPolicy4372a714",
-    "authPolicyName": "pinpoint_amplify_4372a714",
-    "unauthPolicyName": "pinpoint_amplify_4372a714",
+    "roleName": "pinpointLambdaRolecf595098",
+    "cloudformationPolicyName": "cloudformationPolicycf595098",
+    "cloudWatchPolicyName": "cloudWatchPolicycf595098",
+    "pinpointPolicyName": "pinpointPolicycf595098",
+    "authPolicyName": "pinpoint_amplify_cf595098",
+    "unauthPolicyName": "pinpoint_amplify_cf595098",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },

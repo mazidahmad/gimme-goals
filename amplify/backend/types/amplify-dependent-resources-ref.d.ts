@@ -6,8 +6,15 @@ export type AmplifyDependentResourcesAttributes = {
       "appName": "string"
     }
   },
+  "api": {
+    "gimmegoals": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string",
+      "GraphQLAPIKeyOutput": "string"
+    }
+  },
   "auth": {
-    "gimmegoalsaa25e73a": {
+    "gimmegoalsda69e139": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
