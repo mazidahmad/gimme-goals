@@ -6,27 +6,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/mixin/messenger_mixin.dart';
+import 'package:gimme_goals/core/theme/theme.dart';
+import 'package:gimme_goals/features/global/data/models/model_provider.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_primary_button.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_value_changer.dart';
-import 'package:gimme_goals/features/main/home/presentation/cubit/add_body_mass_cubit.dart';
+import 'package:gimme_goals/features/main/home/presentation/cubit/cud_body_mass_cubit.dart';
 import 'package:gimme_goals/router/app_router.dart';
 
 @RoutePage()
-class AddBodyMassPage extends StatefulWidget {
-  const AddBodyMassPage({super.key});
+class CUDBodyMassPage extends StatefulWidget {
+  const CUDBodyMassPage({this.bodyMass, super.key});
 
   static const String routeName = '/add-body-mass';
+  final BodyMassModel? bodyMass;
 
   @override
-  State<AddBodyMassPage> createState() => _AddBodyMassPageState();
+  State<CUDBodyMassPage> createState() => _CUDBodyMassPageState();
 }
 
-class _AddBodyMassPageState extends State<AddBodyMassPage> with MessagerMixin {
-  late final AddBodyMassCubit _cubit;
+class _CUDBodyMassPageState extends State<CUDBodyMassPage> with MessagerMixin {
+  late final CUDBodyMassCubit _cubit;
 
   @override
   void initState() {
-    _cubit = getIt<AddBodyMassCubit>();
+    _cubit = getIt<CUDBodyMassCubit>();
     super.initState();
   }
 
@@ -39,28 +42,43 @@ class _AddBodyMassPageState extends State<AddBodyMassPage> with MessagerMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _cubit,
+      create: (context) => _cubit..initialize(widget.bodyMass),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Add Body Mass'),
+          title:
+              Text('${(widget.bodyMass == null) ? "Add" : "Edit"} Body Mass'),
+          actions: [
+            if (widget.bodyMass != null)
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.delete,
+                  color: AppColors.red,
+                ),
+              )
+          ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: AppPrimaryButton(
-          text: 'Add Today Body Mass',
-          onPressed: _cubit.addBodyMass,
+          text: '${(widget.bodyMass == null) ? "Add Today" : "Edit"} Body Mass',
+          onPressed: () {
+            (widget.bodyMass != null)
+                ? _cubit.updateBodyMass(widget.bodyMass!)
+                : _cubit.addBodyMass();
+          },
         ),
-        body: BlocConsumer<AddBodyMassCubit, AddBodyMassState>(
+        body: BlocConsumer<CUDBodyMassCubit, CUDBodyMassState>(
           listener: (context, state) async {
-            if (state.status == AddBodyMassStateStatus.loading) {
+            if (state.status == CUDBodyMassStateStatus.loading) {
               EasyLoading.show();
             } else {
               EasyLoading.dismiss();
 
-              if (state.status == AddBodyMassStateStatus.failed) {
+              if (state.status == CUDBodyMassStateStatus.failed) {
                 showAppToast(
                     message: state.failure!.message, type: ToastType.error);
-              } else if (state.status == AddBodyMassStateStatus.success) {
-                await getIt<AppRouter>().pop();
+              } else if (state.status == CUDBodyMassStateStatus.success) {
+                await getIt<AppRouter>().pop(true);
               }
             }
           },

@@ -11,6 +11,7 @@ abstract class HomeRemoteDatasource {
   Future<BodyMassModel?> getTodayBodyMass();
   Future<GoalModel?> getBodyGoal();
   Future<void> createTodayBodyMass(BodyMassRequestModel bodyMass);
+  Future<void> updateBodyMass(BodyMassModel bodyMass);
   Future<void> createBodyGoal(BodyGoalRequestModel goal);
 }
 
@@ -124,6 +125,31 @@ class HomeRemoteDatasourceImpl extends HomeRemoteDatasource {
 
       final createdGoalModel = response.data;
       if (createdGoalModel == null) {
+        throw NetworkException('errors: ${response.errors}');
+      }
+    } on ApiException catch (e) {
+      throw NetworkException('Mutation failed: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> updateBodyMass(BodyMassModel bodyMass) async {
+    try {
+      var session = await _ampModule.amplify.Auth.fetchAuthSession();
+      var dataSession = session.toJson();
+
+      CognitoUserPoolTokens tokens =
+          dataSession['userPoolTokens'] as CognitoUserPoolTokens;
+
+      final request = ModelMutations.update(bodyMass,
+          authorizationMode: _authType,
+          headers: {'Authorization': 'Bearer ${tokens.accessToken.raw}'});
+
+      final response =
+          await _ampModule.amplify.API.mutate(request: request).response;
+
+      final updateBodyMass = response.data;
+      if (updateBodyMass == null) {
         throw NetworkException('errors: ${response.errors}');
       }
     } on ApiException catch (e) {

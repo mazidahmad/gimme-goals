@@ -1,14 +1,14 @@
-part of 'add_body_mass_cubit.dart';
+part of 'cud_body_mass_cubit.dart';
 
-enum AddBodyMassStateStatus { initial, loading, loaded, failed, success }
+enum CUDBodyMassStateStatus { initial, loading, loaded, failed, success }
 
-class AddBodyMassState extends Equatable {
-  final AddBodyMassStateStatus status;
+class CUDBodyMassState extends Equatable {
+  final CUDBodyMassStateStatus status;
   final double weight;
   final double height;
   final Failure? failure;
 
-  const AddBodyMassState(
+  const CUDBodyMassState(
       {required this.status,
       required this.weight,
       required this.height,
@@ -17,13 +17,13 @@ class AddBodyMassState extends Equatable {
   @override
   List<Object?> get props => [status, weight, height, failure];
 
-  AddBodyMassState copyWith({
-    AddBodyMassStateStatus? status,
+  CUDBodyMassState copyWith({
+    CUDBodyMassStateStatus? status,
     double? weight,
     double? height,
     Failure? failure,
   }) {
-    return AddBodyMassState(
+    return CUDBodyMassState(
       status: status ?? this.status,
       weight: weight ?? this.weight,
       height: height ?? this.height,

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/mixin/messenger_mixin.dart';
 import 'package:gimme_goals/core/theme/theme.dart';
 import 'package:gimme_goals/core/util/date_util.dart';
 import 'package:gimme_goals/features/global/data/models/body_mass_model.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_box_card.dart';
 import 'package:gimme_goals/features/main/history/presentation/cubit/history_cubit.dart';
+import 'package:gimme_goals/router/app_router.dart';
+import 'package:gimme_goals/router/app_router.gr.dart';
 
 class HistoryPager extends StatelessWidget with MessagerMixin {
   HistoryPager({super.key});
@@ -33,14 +36,17 @@ class HistoryPager extends StatelessWidget with MessagerMixin {
             },
             builder: (context, state) {
               if (state is HistoryLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const Expanded(
+                    child: Center(child: CircularProgressIndicator()));
               }
               if (state is HistoryLoaded) {
                 if (state.histories.isEmpty) {
-                  return Center(
-                    child: Text(
-                      "You don't write body mass yet",
-                      style: AppTextStyle.headlineMedium(),
+                  return Expanded(
+                    child: Center(
+                      child: Text(
+                        "You don't write body mass yet",
+                        style: AppTextStyle.headlineMedium(),
+                      ),
                     ),
                   );
                 }
@@ -76,31 +82,40 @@ class HistoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 12.h),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.sp),
-          color: AppColors.textColor.withOpacity(0.1)),
-      child: Row(
-        children: [
-          AppBoxCard(
-            backgroundColor: Colors.transparent,
-            value: date.day.toString(),
-            title: DateUtil.getStringMonth(date),
-            subtitle: date.year.toString(),
-          ),
-          const Spacer(),
-          AppBoxCard(
-              value: history.weight.toInt().toString(),
-              title: 'Weight',
-              subtitle: 'Kg'),
-          Gap(12.w),
-          AppBoxCard(
-              value: history.height.toInt().toString(),
-              title: 'Height',
-              subtitle: 'Cm'),
-        ],
+    return GestureDetector(
+      onTap: () async => await getIt<AppRouter>()
+          .push(CUDBodyMassRoute(bodyMass: history))
+          .then((value) {
+        if (value == true) {
+          context.read<HistoryCubit>().fetchHistories();
+        }
+      }),
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 12.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.sp),
+            color: AppColors.textColor.withOpacity(0.1)),
+        child: Row(
+          children: [
+            AppBoxCard(
+              backgroundColor: Colors.transparent,
+              value: date.day.toString(),
+              title: DateUtil.getStringMonth(date),
+              subtitle: date.year.toString(),
+            ),
+            const Spacer(),
+            AppBoxCard(
+                value: history.weight.toInt().toString(),
+                title: 'Weight',
+                subtitle: 'Kg'),
+            Gap(12.w),
+            AppBoxCard(
+                value: history.height.toInt().toString(),
+                title: 'Height',
+                subtitle: 'Cm'),
+          ],
+        ),
       ),
     );
   }

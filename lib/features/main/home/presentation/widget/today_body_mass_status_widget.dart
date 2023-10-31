@@ -35,7 +35,8 @@ class TodayBodyMassStatusWidget extends StatelessWidget {
       );
     }
     return GestureDetector(
-      onTap: () => getIt<AppRouter>().push(const AddBodyMassRoute()),
+      onTap: () =>
+          getIt<AppRouter>().push(CUDBodyMassRoute(bodyMass: bodyMass)),
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
