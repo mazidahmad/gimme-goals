@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
+import 'package:gimme_goals/features/main/history/presentation/cubit/history_cubit.dart';
+import 'package:gimme_goals/features/main/history/presentation/pager/history_pager.dart';
 import 'package:gimme_goals/features/main/home/presentation/cubit/home_cubit.dart';
 import 'package:gimme_goals/features/main/home/presentation/pagers/home_pager.dart';
 
@@ -17,19 +19,22 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late final HomeCubit _homeCubit;
-  final List<Widget> pager = [HomePager(), Container()];
+  late final HistoryCubit _historyCubit;
+  final List<Widget> pager = [HomePager(), HistoryPager()];
 
   int currentIndex = 0;
 
   @override
   void initState() {
     _homeCubit = getIt<HomeCubit>();
+    _historyCubit = getIt<HistoryCubit>();
     super.initState();
   }
 
   @override
   void dispose() {
     _homeCubit.close();
+    _historyCubit.close();
     super.dispose();
   }
 
@@ -39,6 +44,9 @@ class _MainPageState extends State<MainPage> {
       providers: [
         BlocProvider(
           create: (context) => _homeCubit..getTodayBodyMass(),
+        ),
+        BlocProvider(
+          create: (context) => _historyCubit..fetchHistories(),
         ),
       ],
       child: Scaffold(

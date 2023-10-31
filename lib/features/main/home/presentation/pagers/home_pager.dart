@@ -17,38 +17,35 @@ class HomePager extends StatelessWidget with MessagerMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
-          if (state.status == HomeStateStatus.failed) {
-            showAppToast(
-                message: state.failure!.message, type: ToastType.error);
-          }
-        },
-        builder: (context, state) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 23.w),
-            child: Column(
-              children: [
-                const HomeHeaderWidget(),
-                const Spacer(),
-                Text(
-                  'Today Body Mass Status',
-                  style: AppTextStyle.headlineMedium(),
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        if (state.status == HomeStateStatus.failed) {
+          showAppToast(message: state.failure!.message, type: ToastType.error);
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 23.w),
+          child: Column(
+            children: [
+              const HomeHeaderWidget(),
+              const Spacer(),
+              Text(
+                'Today Body Mass Status',
+                style: AppTextStyle.headlineMedium(),
+              ),
+              Gap(20.h),
+              if (state.status == HomeStateStatus.loading)
+                const Center(
+                  child: CircularProgressIndicator(),
                 ),
-                Gap(20.h),
-                if (state.status == HomeStateStatus.loading)
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                if (state.status == HomeStateStatus.loaded)
-                  TodayBodyMassStatusWidget(bodyMass: state.todayBodyMass),
-                const Spacer(),
-              ],
-            ),
-          );
-        },
-      ),
+              if (state.status == HomeStateStatus.loaded)
+                TodayBodyMassStatusWidget(bodyMass: state.todayBodyMass),
+              const Spacer(),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -129,14 +126,8 @@ class HomeHeaderWidget extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text: 'Hello, ',
-                style: AppTextStyle.headlineMedium(),
-                children: [
-                  TextSpan(
-                    text: 'Mazid!',
-                    style: AppTextStyle.headlineMedium(
-                        color: AppColors.primaryColor),
-                  )
-                ],
+                style:
+                    AppTextStyle.headlineMedium(color: AppColors.primaryColor),
               ),
             ),
             Gap(4.h),

@@ -15,4 +15,9 @@ class DateUtil {
     DateFormat df = DateFormat('yyyy-MM-dd');
     return DateTime.parse(df.format(date).toString());
   }
+
+  static String getStringMonth(DateTime date) {
+    DateFormat df = DateFormat('MMMM');
+    return df.format(date).toString();
+  }
 }

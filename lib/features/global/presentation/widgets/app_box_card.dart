@@ -7,12 +7,14 @@ class AppBoxCard extends StatelessWidget {
     required this.value,
     required this.title,
     required this.subtitle,
+    this.backgroundColor,
     super.key,
   });
 
   final String value;
   final String title;
   final String subtitle;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class AppBoxCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.sp),
-        color: AppColors.textColor.withOpacity(0.1),
+        color: backgroundColor ?? AppColors.textColor.withOpacity(0.1),
       ),
       child: Column(
         children: [

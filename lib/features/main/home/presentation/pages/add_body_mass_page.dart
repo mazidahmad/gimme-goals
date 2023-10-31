@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:gimme_goals/core/di/service_locator.dart';
 import 'package:gimme_goals/core/mixin/messenger_mixin.dart';
-import 'package:gimme_goals/core/theme/theme.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_primary_button.dart';
 import 'package:gimme_goals/features/global/presentation/widgets/app_value_changer.dart';
 import 'package:gimme_goals/features/main/home/presentation/cubit/add_body_mass_cubit.dart';

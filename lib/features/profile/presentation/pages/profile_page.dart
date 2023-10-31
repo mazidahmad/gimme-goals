@@ -49,6 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
             return SafeArea(
               child: Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Gap(40.h),
                     const AppAvatar(size: 40),
@@ -57,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       'John Doe',
                       style: AppTextStyle.headlineLarge(),
                     ),
-                    const Spacer(),
+                    Gap(40.h),
                     AppPrimaryButton(
                       color: AppColors.red,
                       textColor: AppColors.textColor,
