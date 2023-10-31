@@ -29,10 +29,11 @@ dependencies:
   gap: ^3.0.1
   pinput: ^3.0.1
   flutter_easyloading: ^3.0.5
-  hive_flutter: ^1.1.0
+  mocktail: ^1.0.0
   fluttertoast: ^8.2.2
   intl: ^0.18.1
   flutter_keyboard_visibility: ^5.4.1
+  bloc_test: ^9.1.4
 
 dev_dependencies:
   flutter_test:
