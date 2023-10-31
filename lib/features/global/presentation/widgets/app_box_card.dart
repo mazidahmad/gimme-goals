@@ -8,6 +8,7 @@ class AppBoxCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.backgroundColor,
+    this.textColor,
     super.key,
   });
 
@@ -15,6 +16,7 @@ class AppBoxCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final Color? backgroundColor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,17 @@ class AppBoxCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppTextStyle.headlineSmall().copyWith(height: 0),
+            style: AppTextStyle.headlineSmall()
+                .copyWith(height: 0, color: textColor),
           ),
           Text(
             value,
-            style: AppTextStyle.displayLarge().copyWith(height: 0),
+            style: AppTextStyle.displayLarge()
+                .copyWith(height: 0, color: textColor),
           ),
           Text(
             subtitle,
-            style: AppTextStyle.bodySmall(),
+            style: AppTextStyle.bodySmall().copyWith(color: textColor),
           ),
         ],
       ),

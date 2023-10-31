@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:gimme_goals/features/login/presentation/pages/login_page.dart';
+import 'package:gimme_goals/features/main/home/presentation/pages/add_body_goal_page.dart';
 import 'package:gimme_goals/features/main/home/presentation/pages/add_body_mass_page.dart';
 import 'package:gimme_goals/features/main/main_page.dart';
 import 'package:gimme_goals/features/onboarding/presentation/pages/onboarding_page.dart';
@@ -47,6 +48,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: AddBodyMassRoute.page,
           path: AddBodyMassPage.routeName,
+        ),
+        AutoRoute(
+          page: AddBodyGoalRoute.page,
+          path: AddBodyGoalPage.routeName,
         )
       ];
 }
