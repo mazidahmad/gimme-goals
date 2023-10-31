@@ -58,6 +58,11 @@ class _MainPageState extends State<MainPage> {
           child: BottomNavigationBar(
             currentIndex: currentIndex,
             onTap: (value) => setState(() {
+              if (value == 0) {
+                _homeCubit.getTodayBodyMass();
+              } else {
+                _historyCubit.fetchHistories();
+              }
               currentIndex = value;
             }),
             items: const [

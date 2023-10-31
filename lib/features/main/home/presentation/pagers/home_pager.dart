@@ -23,36 +23,41 @@ class HomePager extends StatelessWidget with MessagerMixin {
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 23.w),
-          child: Column(
-            children: [
-              Gap(20.h),
-              const HomeHeaderWidget(),
-              const Spacer(),
-              Text(
-                'Body Mass Goals',
-                style: AppTextStyle.headlineMedium(),
-              ),
-              Gap(20.h),
-              if (state.status == HomeStateStatus.loading)
-                const Center(
-                  child: CircularProgressIndicator(),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              context.read<HomeCubit>().getTodayBodyMass();
+            },
+            child: Column(
+              children: [
+                Gap(20.h),
+                const HomeHeaderWidget(),
+                const Spacer(),
+                Text(
+                  'Body Mass Goals',
+                  style: AppTextStyle.headlineMedium(),
                 ),
-              if (state.status == HomeStateStatus.loaded)
-                BodyMassGoalsWidget(goal: state.goal),
-              Gap(40.h),
-              Text(
-                'Today Body Mass',
-                style: AppTextStyle.headlineMedium(),
-              ),
-              Gap(20.h),
-              if (state.status == HomeStateStatus.loading)
-                const Center(
-                  child: CircularProgressIndicator(),
+                Gap(20.h),
+                if (state.status == HomeStateStatus.loading)
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                if (state.status == HomeStateStatus.loaded)
+                  BodyMassGoalsWidget(goal: state.goal),
+                Gap(40.h),
+                Text(
+                  'Today Body Mass',
+                  style: AppTextStyle.headlineMedium(),
                 ),
-              if (state.status == HomeStateStatus.loaded)
-                TodayBodyMassStatusWidget(bodyMass: state.todayBodyMass),
-              const Spacer(),
-            ],
+                Gap(20.h),
+                if (state.status == HomeStateStatus.loading)
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                if (state.status == HomeStateStatus.loaded)
+                  TodayBodyMassStatusWidget(bodyMass: state.todayBodyMass),
+                const Spacer(),
+              ],
+            ),
           ),
         );
       },

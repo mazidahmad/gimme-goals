@@ -20,52 +20,57 @@ class HistoryPager extends StatelessWidget with MessagerMixin {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 23.w),
-      child: Column(
-        children: [
-          Gap(20.h),
-          Text(
-            'Your Body Mass Histories',
-            style: AppTextStyle.headlineLarge(),
-          ),
-          Gap(20.h),
-          BlocConsumer<HistoryCubit, HistoryState>(
-            listener: (context, state) {
-              if (state is HistoryFailed) {
-                showAppToast(
-                    message: state.failure.message, type: ToastType.error);
-              }
-            },
-            builder: (context, state) {
-              if (state is HistoryLoading) {
-                return const Expanded(
-                    child: Center(child: CircularProgressIndicator()));
-              }
-              if (state is HistoryLoaded) {
-                if (state.histories.isEmpty) {
-                  return Expanded(
-                    child: Center(
-                      child: Text(
-                        "You don't write body mass yet",
-                        style: AppTextStyle.headlineMedium(),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          context.read<HistoryCubit>().fetchHistories();
+        },
+        child: Column(
+          children: [
+            Gap(20.h),
+            Text(
+              'Your Body Mass Histories',
+              style: AppTextStyle.headlineLarge(),
+            ),
+            Gap(20.h),
+            BlocConsumer<HistoryCubit, HistoryState>(
+              listener: (context, state) {
+                if (state is HistoryFailed) {
+                  showAppToast(
+                      message: state.failure.message, type: ToastType.error);
+                }
+              },
+              builder: (context, state) {
+                if (state is HistoryLoading) {
+                  return const Expanded(
+                      child: Center(child: CircularProgressIndicator()));
+                }
+                if (state is HistoryLoaded) {
+                  if (state.histories.isEmpty) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(
+                          "You don't write body mass yet",
+                          style: AppTextStyle.headlineMedium(),
+                        ),
                       ),
+                    );
+                  }
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: state.histories.length,
+                      itemBuilder: (context, index) {
+                        var history = state.histories[index];
+                        var date = history.date.getDateTime();
+                        return HistoryListItem(date: date, history: history);
+                      },
                     ),
                   );
                 }
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: state.histories.length,
-                    itemBuilder: (context, index) {
-                      var history = state.histories[index];
-                      var date = history.date.getDateTime();
-                      return HistoryListItem(date: date, history: history);
-                    },
-                  ),
-                );
-              }
-              return Container();
-            },
-          )
-        ],
+                return Container();
+              },
+            )
+          ],
+        ),
       ),
     );
   }
