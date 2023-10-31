@@ -24,6 +24,7 @@ class AppTheme {
           centerTitle: true,
           elevation: 0,
           shadowColor: Colors.transparent,
+          titleTextStyle: AppTextStyle.headlineLarge(),
           iconTheme: IconThemeData(
             color: AppColors.textColor,
             opacity: 1,

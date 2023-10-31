@@ -23,8 +23,8 @@ class HomeState extends Equatable {
   }) {
     return HomeState(
       status: status ?? this.status,
-      todayBodyMass: todayBodyMass ?? this.todayBodyMass,
-      goal: goal ?? this.goal,
+      todayBodyMass: todayBodyMass,
+      goal: goal,
       failure: failure ?? this.failure,
     );
   }

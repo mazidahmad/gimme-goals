@@ -47,7 +47,7 @@ class _CUBodyGoalPageState extends State<CUBodyGoalPage> with MessagerMixin {
         appBar: AppBar(
           title: Text('${(widget.goal != null) ? "Edit" : "Create"} Body Goal'),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: AppPrimaryButton(
           text: '${(widget.goal != null) ? "Edit" : "Create"} Body Goal',
           onPressed: () {

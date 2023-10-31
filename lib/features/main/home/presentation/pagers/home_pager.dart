@@ -25,6 +25,7 @@ class HomePager extends StatelessWidget with MessagerMixin {
           padding: EdgeInsets.symmetric(horizontal: 23.w),
           child: Column(
             children: [
+              Gap(20.h),
               const HomeHeaderWidget(),
               const Spacer(),
               Text(

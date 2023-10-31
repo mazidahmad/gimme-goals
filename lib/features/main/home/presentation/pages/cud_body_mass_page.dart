@@ -60,7 +60,7 @@ class _CUDBodyMassPageState extends State<CUDBodyMassPage> with MessagerMixin {
               )
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: AppPrimaryButton(
           text: '${(widget.bodyMass == null) ? "Add Today" : "Edit"} Body Mass',
           onPressed: () {
